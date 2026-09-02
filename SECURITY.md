@@ -2,12 +2,13 @@
 
 ## Supported versions
 
-This project is not yet published on PyPI. Once published, only the latest
-published version and the latest commit on `main` will be supported.
+This project is published on PyPI: https://pypi.org/project/aei-3gpp-kpi-validator/.
+Only the latest published version and the latest commit on `main` are
+supported.
 
 | Version | Supported |
 |---|---|
-| 0.1.x | Yes, best-effort (once published) |
+| 0.1.x | Yes, best-effort |
 | < 0.1.0 | No |
 
 ## Reporting a vulnerability

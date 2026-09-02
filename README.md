@@ -5,18 +5,22 @@
 [![License](https://img.shields.io/pypi/l/aei-3gpp-kpi-validator.svg)](https://github.com/AIDEdgeInc-Lab/aei-3gpp-kpi-validator/blob/main/LICENSE)
 [![CI](https://github.com/AIDEdgeInc-Lab/aei-3gpp-kpi-validator/actions/workflows/ci.yml/badge.svg)](https://github.com/AIDEdgeInc-Lab/aei-3gpp-kpi-validator/actions/workflows/ci.yml)
 
-A dependency-light Python validator for real 3GPP-standard telecom KPIs.
-Range-checks RSRP, RSRQ, and SINR against their standards-derived valid
-ranges, plus two KPI-specific predicate gates (handover quality, NB-IoT
-power profile) - each citing the actual 3GPP TS number and section it comes
-from. Built on pandas + pydantic + PyYAML; Dask is an optional accelerated
-path, not a requirement.
+aei-3gpp-kpi-validator is a Python library for validating LTE/5G telecom
+KPIs - RSRP, RSRQ, SINR, handover quality, and NB-IoT power - against
+their real 3GPP-standard valid ranges. Every check cites the exact 3GPP TS
+number and section it comes from, and the library stays dependency-light:
+pandas, pydantic, and PyYAML are the only hard requirements, with Dask
+available as an optional accelerated path.
 
-**Status: public, not yet published to PyPI.** This repository is public
-at `AIDEdgeInc-Lab/aei-3gpp-kpi-validator`. PyPI Trusted Publishing is
-registered, but no release has been published to PyPI yet - `pip install
-aei-3gpp-kpi-validator` will not work until that happens. See
-`docs/PUBLISHING.md` for exactly what remains and its current status.
+## Status & roadmap
+
+v0.1.0 is the first installable public release of this library - not a
+pre-release, not an incomplete package. Semver's 0.x range is the standard
+way to signal initial development, not a hedge about readiness. Scope
+evolves through normal versioned releases, the same way
+[`aei-geo-features`](https://github.com/AIDEdgeInc-Lab/aei-geo-features)
+has grown, as real-world usage and telecom feedback inform future
+development.
 
 ## Why this exists
 
@@ -114,41 +118,34 @@ identical validation decisions on the same input.
 
 ## What this deliberately does not do
 
-**CQI mapping, RedCap, Ambient IoT, Outage/Latency, IoT Security/SUCI, and
-PTCRB/GCF certification alignment are not implemented, claimed, or
-referenced anywhere in this library.** These were considered during
-development and explicitly excluded rather than half-built:
+This library validates the five KPIs above and nothing else. That's a
+scope boundary drawn on purpose, not a gap to be filled later:
 
-- **CQI mapping** (TS 38.214 §7.1.7.1) - not implemented here. If you need
-  a CQI-shaped value, be aware that many "CQI calculator" implementations
-  in the wild (including an earlier internal prototype this project's
-  authors are aware of) borrow the CQI name and a 1-15 numeric range
-  without implementing the actual 3GPP CQI table (modulation scheme, code
-  rate, spectral efficiency per index). This library makes no CQI claim of
-  any kind rather than risk that same mistake.
-- **RedCap** - a genuine 3GPP RedCap reference exists (TR 38.875, "Study
-  on support of reduced capability NR devices," Release 17), but it is not
-  implemented in this library. If you rely on TR 38.888 from some other
-  source for RedCap, note that TR 38.888 is actually titled "Adding wider
-  channel bandwidth in NR band n28" - unrelated to RedCap - so double-check
-  any RedCap reference against the [official 3GPP specification portal](https://portal.3gpp.org)
+- **CQI mapping** (TS 38.214 §7.1.7.1) is out of scope. Many "CQI
+  calculator" implementations in the wild - including an earlier internal
+  prototype the authors are aware of - borrow the CQI name and a 1-15
+  numeric range without implementing the actual 3GPP CQI table (modulation
+  scheme, code rate, spectral efficiency per index). Rather than risk that
+  mistake, this library makes no CQI claim at all.
+- **RedCap** is excluded, but worth a correction while we're here: the
+  real 3GPP reference is TR 38.875 ("Study on support of reduced
+  capability NR devices," Release 17). If you've seen TR 38.888 cited for
+  RedCap elsewhere, that number actually belongs to "Adding wider channel
+  bandwidth in NR band n28" - unrelated. Verify any RedCap reference
+  against the [official 3GPP specification portal](https://portal.3gpp.org)
   before relying on it.
-- **Ambient IoT** (TR 22.840 / TR 38.848) - not implemented.
-- **Outage/Latency KPIs** (TS 28.552 / TS 23.503) - not implemented.
-- **IoT Security/SUCI** (TS 33.501 / ETSI TS 103 457) - not implemented.
-- **PTCRB/GCF certification alignment** - not implemented. This library
-  makes no certification or compliance claim of any kind.
+- **Ambient IoT** (TR 22.840 / TR 38.848), **Outage/Latency KPIs** (TS
+  28.552 / TS 23.503), **IoT Security/SUCI** (TS 33.501 / ETSI TS 103
+  457), and **PTCRB/GCF certification alignment** are all left out. No
+  certification or compliance claim is made anywhere in this project.
+- Generic infrastructure - Kafka/DLQ messaging, Vault-style encrypted
+  config, circuit-breaker/retry logic, FastAPI serving, STL-based anomaly
+  detection - was never part of this library's job and isn't included.
 
-This library also does not include, and never has: Kafka/DLQ messaging,
-Vault or other encrypted-config loading, circuit-breaker/retry logic,
-FastAPI serving endpoints, or STL-based anomaly detection. These are
-generic infrastructure or statistics concerns, not 3GPP standards logic,
-and are out of scope for what this library is for.
-
-No "production-ready," "enterprise-grade," "FIPS," "SOC 2," or
-"GDPR-compliant" claim is made anywhere in this project. If you need any
-of those properties, they must come from your own deployment, not from
-this library.
+None of the above is "not yet implemented." It's outside what a 3GPP KPI
+validator should be responsible for, and no "production-ready,"
+"enterprise-grade," FIPS, SOC 2, or GDPR claim is made anywhere in this
+project.
 
 ## Public API
 
@@ -181,9 +178,7 @@ see `tests/test_package_hygiene.py`.
 See `SECURITY.md` for supported versions and how to report a vulnerability
 privately. See `docs/PUBLISHING.md` for the release process: PyPI Trusted
 Publishing with OIDC and no stored API token, registered for both PyPI
-and TestPyPI. **No release has actually been published to either index
-yet** - registration being complete is not the same as a release
-existing.
+and TestPyPI.
 
 ## Contributing
 

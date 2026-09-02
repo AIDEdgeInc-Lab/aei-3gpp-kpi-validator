@@ -1,9 +1,9 @@
 # Publishing process
 
-**This repository is public (`AIDEdgeInc-Lab/aei-3gpp-kpi-validator`).
-PyPI Trusted Publishing is registered, but nothing has been published to
-PyPI yet.** This document describes the process, mirrored from
-`aei-geo-features`' publishing setup.
+**This repository is public (`AIDEdgeInc-Lab/aei-3gpp-kpi-validator`) and
+v0.1.0 is published on PyPI: https://pypi.org/project/aei-3gpp-kpi-validator/.**
+This document describes the process, mirrored from `aei-geo-features`'
+publishing setup.
 
 ## How a release would be published
 
@@ -54,8 +54,8 @@ published, which this section should never be used to imply.
   `push`/`pull_request` trigger.
 - `ci.yml` and `codeql.yml` run on push/PR against this repository and
   validate the wheel/sdist build; neither publishes anywhere.
-- Whether an actual release has been published to TestPyPI and/or PyPI
-  depends on what has run since this section was last updated - check
+- **v0.1.0 is published and live**, verified on both indexes:
   https://test.pypi.org/project/aei-3gpp-kpi-validator/ and
-  https://pypi.org/project/aei-3gpp-kpi-validator/ directly rather than
-  trusting this file to be current.
+  https://pypi.org/project/aei-3gpp-kpi-validator/. Check those pages
+  directly for the current released version rather than trusting this
+  file to stay up to date as future releases ship.
