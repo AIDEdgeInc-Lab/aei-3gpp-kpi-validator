@@ -1,9 +1,9 @@
 # Changelog
 
-All notable changes to this project are recorded here. This project is not
-yet published to PyPI.
+All notable changes to this project are recorded here. This project is
+published on PyPI: https://pypi.org/project/aei-3gpp-kpi-validator/.
 
-## [0.1.0] - Unreleased
+## [0.1.0] - 2026-09-02
 
 ### Added
 
