@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.tox/
+
+# Packaging
+*.whl
+*.tar.gz
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Secrets - never commit real credentials. This project intends to use
+# PyPI Trusted Publishing (OIDC) for any future release, so no token file
+# should ever exist here, but these patterns are kept as a defense-in-depth
+# backstop.
+.env
+.env.*
+*.pem
+*.key
+secrets.toml
+.pypirc

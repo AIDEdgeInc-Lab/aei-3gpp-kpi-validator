@@ -1,0 +1,10 @@
+standard:
+  name: TS 36.213
+  version: "15.05.00"
+  table: Section 15.2
+description: NB-IoT Power Saving Parameters
+valid_range:
+  min: 0
+  max: 262144
+measurement_units: cycle
+update_frequency: Release-specific
