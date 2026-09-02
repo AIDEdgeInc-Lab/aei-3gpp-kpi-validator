@@ -1,9 +1,9 @@
 # Publishing process
 
-**This repository exists (`AIDEdgeInc-Lab/aei-3gpp-kpi-validator`) but is
-private, and nothing has been published to PyPI.** This document describes
-the intended process, mirrored from `aei-geo-features`' publishing setup,
-for when going public and a PyPI release are separately approved.
+**This repository is public (`AIDEdgeInc-Lab/aei-3gpp-kpi-validator`).
+PyPI Trusted Publishing is registered, but nothing has been published to
+PyPI yet.** This document describes the process, mirrored from
+`aei-geo-features`' publishing setup.
 
 ## How a release would be published
 
@@ -27,25 +27,35 @@ short-lived upload credential directly from PyPI via OpenID Connect (OIDC)
 at publish time. There is no long-lived `PYPI_API_TOKEN` secret to create,
 rotate, store in GitHub Secrets, or accidentally leak in a log.
 
-## Trusted Publisher registration (not yet done)
+## Trusted Publisher registration
 
-Needs to be registered as a Trusted Publisher on both pypi.org and
-test.pypi.org, tied to this repository, the `publish.yml` workflow
-filename, and the `pypi`/`testpypi` environments respectively. That
-registration happens on PyPI's own site (Account Settings -> Publishing),
-not in this repository. **Not done yet.** Do not treat this as done, and
-do not update this section to say it's done, until someone has actually
-completed that registration on pypi.org/test.pypi.org and verified it -
-this file should never silently mark it complete.
+Registered as a Trusted Publisher on both pypi.org and test.pypi.org, tied
+to this repository, the `publish.yml` workflow filename, and the
+`pypi`/`testpypi` environments respectively. That registration happens on
+PyPI's own site (Account Settings -> Publishing), not in this repository -
+there is nothing to configure here beyond the workflow file itself. The
+`pypi` GitHub Environment additionally has a required reviewer configured
+with admin-bypass disabled, so a production deployment always pauses for
+manual approval in the Actions UI regardless of what triggered it.
+Registration being complete is not the same as a release existing on
+either index - see "Current state" below for what has actually been
+published, which this section should never be used to imply.
 
 ## Current state
 
-- **The GitHub repository exists** (`AIDEdgeInc-Lab/aei-3gpp-kpi-validator`)
-  but is **private**, not public.
-- No PyPI project exists yet.
-- No Trusted Publisher relationship is configured.
-- `.github/workflows/publish.yml` is present in this repository but has
-  never run - it has no `push`/`pull_request` trigger, so it cannot fire
-  by accident.
+- **The GitHub repository is public** (`AIDEdgeInc-Lab/aei-3gpp-kpi-validator`).
+- Trusted Publisher relationships are configured on both pypi.org and
+  test.pypi.org.
+- The `pypi` GitHub Environment requires manual reviewer approval before
+  any deployment to it proceeds.
+- `.github/workflows/publish.yml` triggers on a published GitHub Release
+  (routes to the `pypi` job only) or manual `workflow_dispatch` (routes to
+  either `testpypi` or `pypi`, `testpypi` by default). It still has no
+  `push`/`pull_request` trigger.
 - `ci.yml` and `codeql.yml` run on push/PR against this repository and
   validate the wheel/sdist build; neither publishes anywhere.
+- Whether an actual release has been published to TestPyPI and/or PyPI
+  depends on what has run since this section was last updated - check
+  https://test.pypi.org/project/aei-3gpp-kpi-validator/ and
+  https://pypi.org/project/aei-3gpp-kpi-validator/ directly rather than
+  trusting this file to be current.

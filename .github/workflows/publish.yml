@@ -11,11 +11,10 @@ name: Publish
 # A manual run defaults to testpypi so a production publish is always an
 # explicit, deliberate choice, never the accidental default.
 #
-# NOTE: this repository exists now, but is still private, and no Trusted
-# Publisher relationship is registered on PyPI yet - see docs/PUBLISHING.md.
-# This workflow has never run: it has no push/pull_request trigger, and
-# publishing must not be attempted until that registration is done and
-# verified, and going public is a separately approved decision.
+# NOTE: this repository is public, and Trusted Publisher relationships are
+# registered on both pypi.org and test.pypi.org - see docs/PUBLISHING.md.
+# The pypi environment additionally requires manual reviewer approval
+# before any deployment to it proceeds, regardless of what triggered it.
 on:
   release:
     types: [published]

@@ -12,12 +12,11 @@ power profile) - each citing the actual 3GPP TS number and section it comes
 from. Built on pandas + pydantic + PyYAML; Dask is an optional accelerated
 path, not a requirement.
 
-**Status: private, pre-release.** This repository exists at
-`AIDEdgeInc-Lab/aei-3gpp-kpi-validator` but is not yet public and not yet
-published to PyPI - PyPI Trusted Publishing has not been configured. This
-README describes the package as it is intended to work; see
-`docs/PUBLISHING.md` for exactly what publishing step remains and its
-current (not-yet-done) status.
+**Status: public, not yet published to PyPI.** This repository is public
+at `AIDEdgeInc-Lab/aei-3gpp-kpi-validator`. PyPI Trusted Publishing is
+registered, but no release has been published to PyPI yet - `pip install
+aei-3gpp-kpi-validator` will not work until that happens. See
+`docs/PUBLISHING.md` for exactly what remains and its current status.
 
 ## Why this exists
 
@@ -180,10 +179,11 @@ see `tests/test_package_hygiene.py`.
 ## Security
 
 See `SECURITY.md` for supported versions and how to report a vulnerability
-privately. See `docs/PUBLISHING.md` for the release process this project
-is designed to use once published: PyPI Trusted Publishing with OIDC and
-no stored API token. **That registration has not been done yet** - there
-is no PyPI project for this package today.
+privately. See `docs/PUBLISHING.md` for the release process: PyPI Trusted
+Publishing with OIDC and no stored API token, registered for both PyPI
+and TestPyPI. **No release has actually been published to either index
+yet** - registration being complete is not the same as a release
+existing.
 
 ## Contributing
 
