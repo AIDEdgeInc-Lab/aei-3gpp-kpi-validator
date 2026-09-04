@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "aei-3gpp-kpi-validator"
-version = "0.1.0"
+version = "0.1.1"
 description = "A dependency-light Python validator for real 3GPP-standard telecom KPIs (RSRP, RSRQ, SINR, handover quality, NB-IoT power) - cites the actual TS specs, and states plainly what it does not implement."
 readme = "README.md"
 requires-python = ">=3.9"

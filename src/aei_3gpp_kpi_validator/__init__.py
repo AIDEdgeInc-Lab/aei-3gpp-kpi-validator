@@ -8,7 +8,7 @@ pulls in prometheus_client. See metrics.py for the optional adapter.
 from aei_3gpp_kpi_validator.models import KPIStandard, Standard, ValidRange
 from aei_3gpp_kpi_validator.validator import ConfigurationError, KPIValidator, ValidationOutcome
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = [
     "__version__",

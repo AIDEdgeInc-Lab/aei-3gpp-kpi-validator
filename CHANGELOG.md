@@ -3,6 +3,13 @@
 All notable changes to this project are recorded here. This project is
 published on PyPI: https://pypi.org/project/aei-3gpp-kpi-validator/.
 
+## [0.1.1] - 2026-09-04
+
+### Fixed
+
+- Fix stale pre-publish status text in PyPI long_description (no
+  functional change).
+
 ## [0.1.0] - 2026-09-02
 
 ### Added
