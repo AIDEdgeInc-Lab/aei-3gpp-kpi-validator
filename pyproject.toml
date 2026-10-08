@@ -49,8 +49,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/AIDEdgeInc-Lab/aei-3gpp-kpi-validator"
-Repository = "https://github.com/AIDEdgeInc-Lab/aei-3gpp-kpi-validator"
+Homepage = "https://aidedgeinc.com/tools/"
+Source = "https://github.com/AIDEdgeInc-Lab/aei-3gpp-kpi-validator"
 Issues = "https://github.com/AIDEdgeInc-Lab/aei-3gpp-kpi-validator/issues"
 Changelog = "https://github.com/AIDEdgeInc-Lab/aei-3gpp-kpi-validator/blob/main/CHANGELOG.md"
 Security = "https://github.com/AIDEdgeInc-Lab/aei-3gpp-kpi-validator/blob/main/SECURITY.md"
