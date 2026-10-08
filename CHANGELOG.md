@@ -3,6 +3,13 @@
 All notable changes to this project are recorded here. This project is
 published on PyPI: https://pypi.org/project/aei-3gpp-kpi-validator/.
 
+## [0.1.2] - 2026-10-08
+
+### Changed
+
+- PyPI project links: Homepage now points to https://aidedgeinc.com/tools/ and a Source link points to this repository (package
+  metadata only; no code, API or dependency change).
+
 ## [0.1.1] - 2026-09-04
 
 ### Fixed
