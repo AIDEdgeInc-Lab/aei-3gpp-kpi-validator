@@ -3,9 +3,14 @@
 All notable changes to this project are recorded here. This project is
 published on PyPI: https://pypi.org/project/aei-3gpp-kpi-validator/.
 
-## [0.1.3] - unreleased (release candidate)
+## [0.2.0] - unreleased (release candidate)
 
-Security baseline. Validation results for the shipped KPI configurations are unchanged.
+Security baseline. Validation results for the shipped KPI configurations are unchanged. Minor version because Python 3.9 support ends (no API change).
+
+### Changed (Python support and dependency floors)
+
+- **Python 3.9 is no longer supported (`requires-python >=3.10`).** The optional `dask` extra depends on `fsspec` and `pyarrow`, whose patched releases (fsspec 2026.6.0, pyarrow 23.0.1) require Python 3.10. The `dev` extra includes `dask`. pip on Python 3.9 keeps resolving 0.1.2.
+- **The `dask` and `dev` extras floor `fsspec>=2026.6.0` (CVE-2026-104851) and `pyarrow>=23.0.1` (CVE-2026-25087)**, so an environment cannot keep a vulnerable copy that `dask` alone would accept. The core dependencies (pandas, pydantic, pyyaml) are unchanged.
 
 ### Fixed
 

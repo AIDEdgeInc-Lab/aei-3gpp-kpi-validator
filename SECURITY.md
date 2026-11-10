@@ -8,8 +8,8 @@ supported.
 
 | Version | Supported |
 |---|---|
-| 0.1.x | Yes, best-effort |
-| < 0.1.0 | No |
+| 0.2.x | Yes, best-effort |
+| < 0.2.0 | No |
 
 ## Reporting a vulnerability
 
@@ -47,6 +47,8 @@ security-adjacent property to verify in any report is that these
 guarantees still hold. The optional `metrics.py` module writes to a
 caller-supplied Prometheus `CollectorRegistry` only - it never starts a
 server, opens a port, or pushes to a remote endpoint itself.
+
+Dependencies: the optional `dask` extra floors `fsspec>=2026.6.0` and `pyarrow>=23.0.1` (security fixes; Python >=3.10).
 
 ### Controls and tests
 
