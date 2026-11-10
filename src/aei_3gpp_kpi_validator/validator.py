@@ -13,6 +13,7 @@ parity tests.
 """
 import logging
 import os
+import re
 import time
 from dataclasses import dataclass
 from typing import Any, Dict, Optional, Union
@@ -40,6 +41,11 @@ _HANDOVER_PREDICATE = "ho_preparation_time < 50 & ho_execution_time < 20"
 
 _NBIOT_REQUIRED_COLUMNS = {"paging_cycle", "edrx_cycle"}
 _NBIOT_PREDICATE = "paging_cycle <= 256 & edrx_cycle <= 262144"
+
+
+# A KPI name becomes a file name under config_path. Letters, digits, '_' and '-' only: no separators, no dots, no absolute path,
+# so a name can never select a file outside the configuration folder.
+_KPI_NAME_RE = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
 
 
 class ConfigurationError(Exception):
@@ -75,11 +81,18 @@ class KPIValidator:
             raise FileNotFoundError(f"Configuration path not found: {config_path}")
 
     def load_kpi_config(self, kpi_name: str) -> None:
-        filepath = os.path.join(self.config_path, f"{kpi_name.lower()}.yml")
+        if not isinstance(kpi_name, str) or not _KPI_NAME_RE.match(kpi_name):
+            raise ConfigurationError(
+                f"Invalid KPI name {kpi_name!r}: use letters, digits, '_' or '-' (it selects a file in the configuration folder)."
+            )
+        config_dir = os.path.realpath(self.config_path)
+        filepath = os.path.join(config_dir, f"{kpi_name.lower()}.yml")
+        if os.path.commonpath([config_dir, os.path.realpath(filepath)]) != config_dir:
+            raise ConfigurationError(f"Configuration for {kpi_name} resolves outside the configuration folder; not loaded.")
         if not os.path.exists(filepath):
             raise FileNotFoundError(f"Configuration for {kpi_name} not found.")
         try:
-            with open(filepath, "r") as f:
+            with open(filepath, "r", encoding="utf-8") as f:
                 config = yaml.safe_load(f)
         except yaml.YAMLError as e:
             raise ConfigurationError(f"Invalid YAML for {kpi_name}: {e}") from e

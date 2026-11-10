@@ -3,6 +3,19 @@
 All notable changes to this project are recorded here. This project is
 published on PyPI: https://pypi.org/project/aei-3gpp-kpi-validator/.
 
+## [0.1.3] - unreleased (release candidate)
+
+Security baseline. Validation results for the shipped KPI configurations are unchanged.
+
+### Fixed
+
+- **A KPI name can no longer select a file outside the configuration folder.** `load_kpi_config` (and `validate_column`, which calls it) used to join the name straight into a path. So `"../x"` read `x.yml` one level up, and an absolute path bypassed `config_path` entirely: `os.path.join` discards the first part. Names are now limited to letters, digits, `_` and `-` (1-64 characters), and the resolved file must lie inside the configuration folder, so a symlink pointing out of it is refused too. An invalid name raises `ConfigurationError`. A well-formed name that has no file still raises `FileNotFoundError`, as before. Config files are read as UTF-8.
+- **A configured range must be finite and ordered.** YAML accepts `.nan` and `.inf`. With a NaN bound, no value is ever counted out of range and nothing is clipped: a silent pass. `valid_range.min` and `max` must now be finite, and `min` must not exceed `max`; otherwise loading raises `ConfigurationError`.
+
+### Not changed
+
+- `validate_handover` and `validate_nbiot_power_profile` still return the input unfiltered (with an error log) when a required column is missing, and `validate_column` still clips silently apart from its warning. These are tracked in issue #9 and left unchanged by owner decision.
+
 ## [0.1.2] - 2026-10-08
 
 ### Changed
