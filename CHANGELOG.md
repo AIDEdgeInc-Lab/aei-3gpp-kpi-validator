@@ -3,7 +3,7 @@
 All notable changes to this project are recorded here. This project is
 published on PyPI: https://pypi.org/project/aei-3gpp-kpi-validator/.
 
-## [0.2.0] - unreleased (release candidate)
+## [0.2.0] - 2026-11-11
 
 Security baseline. Validation results for the shipped KPI configurations are unchanged. Minor version because Python 3.9 support ends (no API change).
 
