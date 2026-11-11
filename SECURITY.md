@@ -8,8 +8,8 @@ supported.
 
 | Version | Supported |
 |---|---|
-| 0.1.x | Yes, best-effort |
-| < 0.1.0 | No |
+| 0.2.x | Yes, best-effort |
+| < 0.2.0 | No |
 
 ## Reporting a vulnerability
 
@@ -47,3 +47,15 @@ security-adjacent property to verify in any report is that these
 guarantees still hold. The optional `metrics.py` module writes to a
 caller-supplied Prometheus `CollectorRegistry` only - it never starts a
 server, opens a port, or pushes to a remote endpoint itself.
+
+Dependencies: the optional `dask` extra floors `fsspec>=2026.6.0` and `pyarrow>=23.0.1` (security fixes; Python >=3.10).
+
+### Controls and tests
+
+| Boundary | Control | Where | Tests |
+|---|---|---|---|
+| KPI configuration files | `yaml.safe_load` only (no object construction); every file validated against the `KPIStandard` schema; range bounds finite and ordered | `validator.load_kpi_config`, `models.py` | `test_validator.py`, `test_security_baseline.py` |
+| KPI name to file path | Name limited to `[A-Za-z0-9_-]{1,64}`; the resolved file must lie inside the configuration folder (no `..`, no absolute path, no symlink out) | `validator.load_kpi_config` | `test_security_baseline.py` |
+| Predicate checks | Fixed predicate strings; no caller input reaches `DataFrame.query` | `validator.py` | `test_validator.py` |
+| Known gap (owner decision) | Missing columns in `validate_handover` / `validate_nbiot_power_profile` return the input unfiltered with an error log (fail-open), tracked in issue #9 | `validator.py` | — |
+

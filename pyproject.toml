@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "aei-3gpp-kpi-validator"
-version = "0.1.2"
+version = "0.2.0"
 description = "A dependency-light Python validator for real 3GPP-standard telecom KPIs (RSRP, RSRQ, SINR, handover quality, NB-IoT power) - cites the actual TS specs, and states plainly what it does not implement."
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = { text = "Apache-2.0" }
 authors = [
     { name = "AID Edge Inc." }
@@ -19,7 +19,6 @@ classifiers = [
     "Intended Audience :: Telecommunications Industry",
     "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -35,7 +34,11 @@ dependencies = [
 
 [project.optional-dependencies]
 dask = [
+    # fsspec>=2026.6.0 (CVE-2026-104851) and pyarrow>=23.0.1 (CVE-2026-25087) are dask's own dependencies, floored here
+    # so an environment cannot keep a vulnerable version. Both need Python >=3.10.
     "dask[dataframe]>=2023.1,<2026",
+    "fsspec>=2026.6.0",
+    "pyarrow>=23.0.1",
 ]
 metrics = [
     "prometheus-client>=0.16,<1",
@@ -45,6 +48,8 @@ dev = [
     "build>=1.0,<2",
     "twine>=5.0,<8",
     "dask[dataframe]>=2023.1,<2026",
+    "fsspec>=2026.6.0",
+    "pyarrow>=23.0.1",
     "prometheus-client>=0.16,<1",
 ]
 
