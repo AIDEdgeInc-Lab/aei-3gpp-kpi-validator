@@ -116,7 +116,7 @@ identical predicate string for both backends - see `tests/test_validator.py`'s
 `*_pandas_dask_parity` tests, which assert the two backends produce
 identical validation decisions on the same input.
 
-## What this deliberately does not do
+## Scope
 
 This library validates the five KPIs above and nothing else. That's a
 scope boundary drawn on purpose, not a gap to be filled later:
