@@ -5,8 +5,9 @@ published on PyPI: https://pypi.org/project/aei-3gpp-kpi-validator/.
 
 ## [Unreleased]
 
-No code, API or result changes.
+No API or result changes.
 
+- Logging: the handover and NB-IoT error logs give the exception type only, never the exception text (which can contain data values such as cell identifiers). Behaviour and return values unchanged.
 - README: "What this deliberately does not do" is now "Scope"; content unchanged.
 
 ## [0.2.0] - 2026-11-11
