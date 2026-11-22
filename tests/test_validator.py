@@ -178,3 +178,21 @@ def test_validate_column_minimum_schema_per_kpi(validator, kpi_name, values, exp
     assert outcome.validated.min() >= expected_min
     assert outcome.validated.max() <= expected_max
     assert outcome.kpi_name == kpi_name
+
+
+@pytest.mark.parametrize("method,cols", [
+    ("validate_handover", {"ho_preparation_time": [10.0], "ho_execution_time": [5.0]}),
+    ("validate_nbiot_power_profile", {"paging_cycle": [128], "edrx_cycle": [1024]}),
+])
+def test_validation_error_log_never_repeats_data_values(validator, monkeypatch, caplog, method, cols):
+    df = pd.DataFrame(cols)
+
+    def boom(*a, **k):
+        raise ValueError("could not convert 'CELL-SECRET-0042' at 43.6532611")
+
+    monkeypatch.setattr(pd.DataFrame, "query", boom)
+    with caplog.at_level("ERROR", logger="aei_3gpp_kpi_validator.validator"):
+        out = getattr(validator, method)(df)
+    assert out is df  # unchanged behaviour: rows returned unfiltered
+    assert "ValueError" in caplog.text
+    assert "CELL-SECRET-0042" not in caplog.text and "43.6532611" not in caplog.text

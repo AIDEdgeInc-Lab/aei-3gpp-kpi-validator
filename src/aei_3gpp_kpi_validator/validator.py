@@ -182,7 +182,7 @@ class KPIValidator:
                 )
             return df.query(_HANDOVER_PREDICATE, engine="python")
         except Exception as e:
-            LOG.error(f"Error during handover validation: {e}")
+            LOG.error(f"Error during handover validation: {type(e).__name__} (rows returned unfiltered)")
             return df
 
     def validate_nbiot_power_profile(self, df):
@@ -205,5 +205,5 @@ class KPIValidator:
                 )
             return df.query(_NBIOT_PREDICATE, engine="python")
         except Exception as e:
-            LOG.error(f"Error during NB-IoT power profile validation: {e}")
+            LOG.error(f"Error during NB-IoT power profile validation: {type(e).__name__} (rows returned unfiltered)")
             return df
